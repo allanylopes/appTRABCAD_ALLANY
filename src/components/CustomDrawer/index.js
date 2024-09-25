@@ -28,7 +28,7 @@ const CustomDrawer= FC = () => {
                        // Para sair do aplicativo:
                     BackHandler.exitApp();
                     } catch (error) {
-                        Alert.alert('Não foi possivel sair, tente novamente!')
+                        Alert.alert('Não foi possível sair, tente novamente!')
                     }
                 }
             }
@@ -39,7 +39,7 @@ const CustomDrawer= FC = () => {
         <View style={{ flex: 1, backgroundColor: '#3F3F3F' }}>
             <Image style={styles.logo} source={require('../../../assets/logo2.png')} />
 
-            <View style={{ width: '90%', backgroundColor: 'c1c1c1#', height: 0.5, alignSelf: 'center', marginBottom: 5, marginTop: 20 }}></View>
+            <View style={{ width: '90%', backgroundColor: '#c1c1c1', height: 0.5, alignSelf: 'center', marginBottom: 5, marginTop: 20 }}></View>
 
             <ScrollView
                 style={styles.container}

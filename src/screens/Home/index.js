@@ -20,10 +20,37 @@ export default function Home(){
     const[refreshing,setRefreshing] = useState(false);
     const[total,setTotal] = useState('');
 
+
     async function totalDadosCadastrados() {
         const res = await api.get('KadsCar/listar-cards.php');
     }
+    async function getItem(id){
+        navigation.navigate("Cadastro" , {id:id})
+    }
 
+    function mensagemDelete(id) {
+        Alert.alert(
+            "Excluir Registro",
+            "Deseja excluir este registro?",
+            [
+                {
+                    text: "Não",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "Sim", 
+                    onPress: () => deleteItem(id)
+                }
+            ],
+            { cancelable: true}
+        )
+    }
+
+    async function deleteItem(id) {
+        const res = await api.get('KadsCar/excluir.php?id=' + id);
+        listarDados();
+    }
 
     async function listarDados()
     {

@@ -187,4 +187,28 @@ export const styles = StyleSheet.create({
         width: 200,
         marginLeft: 10,
     },
+
+    grid:{
+        marginTop: 8,
+        
+    },
+    
+    griditem:{
+        padding: 11,
+        borderBottomColor: "#dbdbdb",
+        borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    
+    gridbotaoEditar:{
+        position: 'absolute',
+        right:40,
+        color:'#5c7ef6',
+    },
+    
+    gridbotaoExcluir:{
+        position: 'absolute',
+        right:15,
+        color:'#cc1414',
+    },
+    
 })

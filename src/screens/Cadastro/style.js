@@ -78,7 +78,6 @@ export const styles = StyleSheet.create({
     },
 
     TitleInputs:{
- 
         fontSize: 18,
         color: "#ffffff",
         marginLeft: 35,
@@ -157,16 +156,16 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 45,
         marginBottom: 5,
-      },
+    },
 
-      date:{
+    date:{
 
         fontSize: 15,
         color: '#000',
         alignSelf: "center",
-      },
+    },
 
-      logo:{
+    logo:{
         width: '100%',
         height: 130,
         alignSelf: "center",

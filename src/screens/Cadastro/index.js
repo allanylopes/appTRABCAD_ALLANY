@@ -9,7 +9,7 @@ import {showMessage} from 'react-native-flash-message';
 
 import api from '../../../services/api';
 
-const Cadastro = FC = () => {
+const Cadastro = FC = ({route}) => {
     const navigation = any =useNavigation();
     const[id, setId] = useState("");
     const[nome, setNome] = useState("");
@@ -17,6 +17,75 @@ const Cadastro = FC = () => {
     const[placa, setPlaca] = useState("");
     const[success,setSuccess] = useState(false);
     const[loading, setLoading] = useState(false);
+
+    async function buscarDados() {
+        const res = await api.get('KadsCar/buscarID.php?id=' + id);
+        limparCampos();
+        setId(res.data.id);
+        setNome(res.data.nome);
+        setModelo(res.data.modelo);
+        setPlaca(res.data.placa);
+    }
+    useEffect(() => {
+        buscarDados();
+    },[])
+    
+    function limparCampos() {
+        setId('');
+        setNome('');
+        setModelo('');
+        setTPlaca('');
+    }
+    
+    
+    async function editar() {    
+        
+        const {id} = route.params;
+            
+        if (id == "" || nome == "" || modelo == "" || placa == "") {
+        showMessage({
+            message: "Erro ao Editar",
+            escription: 'Preencha os Campos Obrigatórios!',
+            type: "warning",
+        });
+        return;
+    }
+    
+    try {
+        const obj = {
+    
+            id: id,
+            nome: nome, 
+            modelo: modelo,               
+            placa: placa,       
+        }
+    
+        const res = await api.post('KadsCar/editar.php', obj);
+    
+        if (res.data.sucesso === false) {
+            showMessage({
+                message: "Erro ao Editar",
+                description: res.data.mensagem,
+                type: "warning",
+                duration: 3000,
+            });               
+            return;
+        }
+    
+        setSuccess(true);
+        showMessage({
+            message: "Registro alterado com Sucesso",
+            description: "Registro Alterado",
+            type: "success",
+            duration: 800,             
+        }); 
+        limparCampos();           
+    
+    } catch (error) {
+        Alert.alert("Ops", "Alguma coisa deu errado, tente novamente.");
+        setSuccess(false);
+    }
+    } 
 
 async function saveData(){
     if(id == "" || nome == "" || modelo == "" || placa == "")
@@ -142,10 +211,21 @@ return (
                     setSuccess(false);
                 }}
             >
-            
+                <Ionicons name="footsteps-outline" size={35} color="#FFF" />
                 <Text style={styles.ButtonText}>Salvar</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity
+                style={styles.Button}
+                onPress={() => {
+                    setSuccess(true);
+                    editar();
+                    setSuccess(false);
+                }}
+            >
+                <Ionicons name="footsteps-outline" size={35} color="#FFF" />
+                <Text style={styles.ButtonText}>Editar</Text>
+            </TouchableOpacity>
             </ScrollView>                 
 
     </View>
